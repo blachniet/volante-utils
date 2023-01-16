@@ -1,0 +1,11 @@
+{
+  "name": "UtilsTest",
+  "debug": true,
+  "attach": [
+    "volante-console"
+  ],
+  "attachLocal": [
+    "./src",
+    "./example/example"
+  ]
+}

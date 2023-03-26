@@ -1,6 +1,6 @@
 {
   "name": "volante-utils",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "volante utils ala lodash/underscore",
   "author": "Mike Smiley <msmiley@alumni.rice.edu>",
   "url": "https://github.com/msmiley/volante-utils",

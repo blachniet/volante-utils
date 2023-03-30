@@ -46,13 +46,13 @@ module.exports = {
     flatMap(aryOfObj, path) {
       return aryOfObj.map((o) => this.get(o, path));
     },
-    randomNumber(min, max) {
+    randomNumber(min=0, max=100) {
       return Math.random() * (max - min) + min;
     },
-    randomInteger(min, max) {
+    randomInteger(min=0, max=100) {
       return Math.round(Math.random() * (max - min) + min);
     },
-    generateId(length) {
+    generateId(length=16) {
       return crypto.randomBytes(length).toString('hex');
     },
   },

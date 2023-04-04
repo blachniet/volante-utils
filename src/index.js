@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
 //
-// UTILS PROVIDED BY ES6+
+// UTILS PROVIDED BY ES6+, DON'T IMPLEMENT THESE
 // .filter
 // .find
 // .findIndex
@@ -10,7 +10,14 @@ const crypto = require('crypto');
 module.exports = {
   name: 'VolanteUtils',
   methods: {
+    //
+    // namespaced methods
+    //
     jwt: require('./jwt'),
+    crypto: require('./crypto'),
+    //
+    // non-namespaced methods
+    //
     get(obj, path) {
       return path.split('.').reduce(function(a, v) {
         return a[v];

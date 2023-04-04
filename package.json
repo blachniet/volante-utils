@@ -11,8 +11,8 @@
     "dev": "node example/index.js"
   },
   "devDependencies": {
-    "volante": "*",
-    "volante-console": "*"
+    "volante": "6.10.0",
+    "volante-console": "4.4.2"
   },
   "keywords": [
     "volante"

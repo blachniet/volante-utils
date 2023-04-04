@@ -7,6 +7,7 @@ module.exports = {
     this.test_generateId();
     this.test_clone();
     this.test_flatMap();
+    this.test_generatePassword();
   },
   data() {
     return {
@@ -61,7 +62,7 @@ module.exports = {
       console.log(this.$.VolanteUtils.flatMap(this.aryOfObjects, 'attributes.height'));
     },
     test_generatePassword() {
-      console.log(this.$.VolanteUtils.jwt.generatePasswordHash('jkldf'));
+      console.log('password hash', this.$.VolanteUtils.jwt.generatePasswordHash('jkldf'));
     },
   },
 };

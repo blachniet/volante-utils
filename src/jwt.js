@@ -4,7 +4,7 @@ module.exports = {
   //
   // build a JWT
   //
-  buildJwt({ /*user*/_id, username }) {
+  build({ /*user*/_id, username }) {
     let header = {
      alg : "HS256",
      typ : "JWT"
@@ -38,7 +38,7 @@ module.exports = {
   //
   // cryptographically validate a JWT
   //
-  validateJwt(jwt) {
+  validate(jwt) {
     let splitToken = jwt.split('.'); // split the header and payload
     let signature = crypto.createHmac('sha256', this.jwtSecret)
                           .update(splitToken.slice(0, 2).join('.')).digest('hex');
@@ -66,19 +66,19 @@ module.exports = {
   //
   // parse the JWT payload and return as an Object
   //
-  parseJwtPayload(jwt) {
+  parsePayload(jwt) {
     return JSON.parse(Buffer.from(jwt.split('.')[1], 'base64').toString());
   },
   //
   // parse the JWT payload and return only the username ('aud') part
   //
-  getUserFromJwt(token) {
+  parseUsername(token) {
     return exports.getUserFromTokenObject(exports.parseTokenPayload(token));
   },
   //
   // parse the JWT payload and return only the _id ('sub') part
   //
-  getUserIdFromJwt(token) {
+  parseUserId(token) {
     return exports.getUserIdFromTokenObject(exports.parseTokenPayload(token));
   },
   //
@@ -92,13 +92,5 @@ module.exports = {
   //
   getUserIdFromJwtObject(tokenObj) {
     return tokenObj.sub;
-  },
-  //
-  // utility for creating a password hash using node.js crypto library
-  //
-  generatePasswordHash(password) {
-    const salt = crypto.randomBytes(16).toString("hex");
-    const hash = crypto.scryptSync(password, salt, 32).toString("hex");
-    return `${salt}${hash}`;
   },
 };

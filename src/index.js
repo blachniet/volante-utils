@@ -10,7 +10,7 @@ const crypto = require('crypto');
 module.exports = {
   name: 'VolanteUtils',
   methods: {
-    ...require('./jwt'),
+    jwt: require('./jwt'),
     get(obj, path) {
       return path.split('.').reduce(function(a, v) {
         return a[v];

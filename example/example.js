@@ -60,5 +60,8 @@ module.exports = {
     test_flatMap() {
       console.log(this.$.VolanteUtils.flatMap(this.aryOfObjects, 'attributes.height'));
     },
+    test_generatePassword() {
+      console.log(this.$.VolanteUtils.jwt.generatePasswordHash('jkldf'));
+    },
   },
 };

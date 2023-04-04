@@ -2,9 +2,9 @@ const crypto = require('crypto');
 
 module.exports = {
   //
-  // build a C2 JWT
+  // build a JWT
   //
-  buildToken({ /*user*/_id, username }) {
+  buildJwt({ /*user*/_id, username }) {
     let header = {
      alg : "HS256",
      typ : "JWT"
@@ -26,11 +26,20 @@ module.exports = {
     this.$log(`built token for ${username} for ${this.tokenDays} days`);
     return `${hp}.${signature}`;
   },
+  getJwtFromAuthorizationHeader(hdr) {
+    if (hdr && typeof(hdr) === 'string' && hdr.startsWith('Bearer')) {
+      let sp = hdr.split('Bearer ');
+      if (sp.length === 2) {
+        return sp[1];
+      }
+    }
+    return null;
+  },
   //
   // cryptographically validate a JWT
   //
-  validateToken(token) {
-    let splitToken = token.split('.'); // split the header and payload
+  validateJwt(jwt) {
+    let splitToken = jwt.split('.'); // split the header and payload
     let signature = crypto.createHmac('sha256', this.jwtSecret)
                           .update(splitToken.slice(0, 2).join('.')).digest('hex');
     // see if computed signature matches what was provided
@@ -47,7 +56,7 @@ module.exports = {
       if (payload.exp && payload.exp > now) {
         return payload;
       } else {
-        this.$debug('expired token', token);
+        this.$debug('expired token', jwt);
         return null;
       }
     }
@@ -57,31 +66,31 @@ module.exports = {
   //
   // parse the JWT payload and return as an Object
   //
-  parseTokenPayload(token) {
-    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+  parseJwtPayload(jwt) {
+    return JSON.parse(Buffer.from(jwt.split('.')[1], 'base64').toString());
   },
   //
   // parse the JWT payload and return only the username ('aud') part
   //
-  getUserFromTokenString(token) {
+  getUserFromJwt(token) {
     return exports.getUserFromTokenObject(exports.parseTokenPayload(token));
   },
   //
   // parse the JWT payload and return only the _id ('sub') part
   //
-  getUserIdFromTokenString(token) {
+  getUserIdFromJwt(token) {
     return exports.getUserIdFromTokenObject(exports.parseTokenPayload(token));
   },
   //
   // Return the username field of the given token object
   //
-  getUserFromTokenObject(tokenObj) {
+  getUserFromJwtObject(tokenObj) {
     return tokenObj.aud;
   },
   //
   // Return the user _id field of the given token object
   //
-  getUserIdFromTokenObject(tokenObj) {
+  getUserIdFromJwtObject(tokenObj) {
     return tokenObj.sub;
   },
   //

@@ -73,13 +73,13 @@ module.exports = {
   // parse the JWT payload and return only the username ('aud') part
   //
   parseUsername(token) {
-    return exports.getUserFromTokenObject(exports.parseTokenPayload(token));
+    return this.getUserFromJwtObject(this.parsePayload(token));
   },
   //
   // parse the JWT payload and return only the _id ('sub') part
   //
   parseUserId(token) {
-    return exports.getUserIdFromTokenObject(exports.parseTokenPayload(token));
+    return this.getUserIdFromJwtObject(this.parsePayload(token));
   },
   //
   // Return the username field of the given token object
